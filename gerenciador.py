@@ -67,3 +67,5 @@ while True:
         see_tasks(tasks)
     elif user_choice == "6":
         break
+    else:
+        print("Error: User selected an option that doesn't exist")
