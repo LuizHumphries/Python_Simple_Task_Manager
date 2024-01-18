@@ -1,7 +1,6 @@
 def add_task(tarefas: list[dict[str,bool]], task_name: str) -> None:
     task = {"task": task_name, "completed": False}
-    tarefas.append(task)
-    
+    tarefas.append(task) 
 
 def see_tasks(tasks: list[dict[str,bool]]) -> None:
     print("\nTask List:")
@@ -17,6 +16,17 @@ def update_task_name(tasks: list[dict[str,bool]], task_index: str, new_task_name
     print(f"\nTask {task_index} updated! New name = {new_task_name}")
     return
 
+def complete_task(tasks: list[dict[str, bool]], task_index: str) -> None:
+    task_index_adjusted = int(task_index) - 1
+    tasks[task_index_adjusted]["completed"] = True
+    print(f"Task {tasks[task_index_adjusted]['task']} completed")
+    return
+
+def delete_completed_tasks(taks: list[dict[str, bool]]) -> None:
+    for task in tasks:
+        if task["completed"]:
+            tasks.remove(task)
+    print("Deleted all the completed tasks")
 
 tasks = []
 while True:
@@ -28,24 +38,32 @@ while True:
     print("5. Delete all completed tasks")
     print("6. Quit")
 
-
     user_choice = input("Choose an option: ")
 
     if user_choice == "1":
         task_name = input("Digite o nome da tarefa que gostaria de adicionar: ")
         add_task(tasks, task_name)
-
     elif user_choice == "2":
         see_tasks(tasks)
-
     elif user_choice == "3":
         see_tasks(tasks)
         task_index = input("What is the task number would you want to change? ")
         if int(task_index) - 1 >= 0 and int(task_index) - 1 < len(tasks):
             new_task_name = input("Write the new name for this task: ")
             update_task_name(tasks, task_index, new_task_name)
+            see_tasks(tasks)
         else:
             print("Error: invalid task index")
-
+    elif user_choice == "4":
+        see_tasks(tasks)
+        task_index = input("What is the task number would you want to mark as completed? ")
+        if int(task_index) - 1 >= 0 and int(task_index) - 1 < len(tasks):
+            complete_task(tasks, task_index)
+            see_tasks(tasks)
+        else: 
+            print("Error: invalid task index")
+    elif user_choice == "5":
+        delete_completed_tasks(tasks)
+        see_tasks(tasks)
     elif user_choice == "6":
         break
